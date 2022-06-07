@@ -24,15 +24,19 @@
               <th scope="col">Name</th>
               <th scope="col">Phone Number</th>
               <th scope="col">Department</th>
+              <th scope="col"></th>
             </tr>
           </thead>
         {% for employee in rows: %}
           <tbody>
         <tr>
           <td>{{ employee.id }}</td>
-          <td>{{ employee.name }}</td>
+          <td>{{ employee.first_name }} {{ employee.last_name }}</td>
           <td>{{ employee.phone_number }}</td>
           <td>{{ employee.department }}</td>
+          <td><button type="button" class="close" onclick="deleteEmployee({{ employee.id }})">
+          <span aria-hidden="true">&times;</span>
+          </button></td>
         </tr>
         </tbody>
         {% endfor %}

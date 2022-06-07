@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Add Employee{% endblock %}
+
+{%block content%}
+
+<form method="POST">
+  <h3 align="center">Sign UP</h3>
+  <div class="form-group">
+    <label for="add_name">First Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="add_name"
+      name="add_name"
+      placeholder="Enter First Name"
+    />
+  </div>
+
+
+   <div class="form-group">
+    <label for="add_lastname">Last Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="add_lastname"
+      name="add_lastname"
+      placeholder="Enter Last Name"
+    /> 
+
+  </div>
+
+  <div class="form-group">
+    <label for="add_phonenumber">Phone Number</label>
+    <input
+      type="text"
+      class="form-control"
+      id="add_phonenumber"
+      name="add_phonenumber"
+      placeholder="Enter Phone Number"
+    />
+
+  </div>
+
+  <div >
+    <label>Chooose Department</label>
+    <br />
+    <select 
+    class="orm-select form-select-lg mb-3" 
+    aria-label=".form-select-sm example" 
+    id="add_department"
+    name="add_department"
+    >
+      {% for each in dept_list %}
+      <option value="{{each}}">{{each}}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <br />
+
+  <button type="submit" class="btn btn-primary">Add Employee</button>
+
+
+
+</form>
+
+
+{% endblock %}

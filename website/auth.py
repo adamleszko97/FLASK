@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import users
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
+from . import engine
+from sqlalchemy.orm import sessionmaker
 
 auth = Blueprint('auth', __name__)
 
@@ -11,10 +13,12 @@ def login():
     
 
     if request.method == 'POST':
+        Session = sessionmaker(engine)
+        session = Session()
         email = request.form.get('email')
         password = request.form.get("password")
 
-        user = users.query.filter_by(email=email).first()
+        user = session.query(users).filter_by(email=email).first()
         if user:
             if user.password == password:
                 flash('Logged in successfully!')
@@ -24,8 +28,9 @@ def login():
                 flash('Incorrect Password', category='error')
         else:
             flash('Email does not exist', category='error')
-    return render_template("login.html", user=current_user)
+        session.close()
     
+    return render_template("login.html", user=current_user)
 @auth.route('/logout')
 @login_required
 def logout():
