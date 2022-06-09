@@ -21,25 +21,28 @@ def search():
     result=[]
 
     if request.method == 'POST':
-        name_form = request.form.get('name_search')
         Session = sessionmaker(engine)
         session = Session()
 
+        if request.form.get('Search') == 'Search':
+            name_form = request.form.get('name_search')
+            if(len(name_form) > 2):
+                result = session.query(employees).filter(employees.first_name.match(name_form)).all()
 
-        if(len(name_form) > 2):
-            result = session.query(employees).filter(employees.first_name.match(name_form)).all()
-            
-            print(result)
+                if result:
+                    flash('Users found!')
 
-            if result:
-                flash('Users found!')
+                else:
+                    flash('Users not found', category='error')  
 
             else:
-                flash('Users not found', category='error')  
+                flash('Please provide more than 2 characters', category='error')
 
-        else:
-            flash('Please provide more than 2 characters', category='error')
-        
+        elif request.form.get('Search All') == 'Search All':
+            flash('All employees listed')
+            result = session.query(employees).order_by(employees.last_name.asc()).all()
+
+
         session.close()
     return render_template("search.html", user=current_user, rows=result)
 
@@ -69,13 +72,13 @@ def add_employee():
             
             flash("First name has to be at lest 2 characters long", category='error')
 
-        if(len(lastname_add) <= 2):
+        elif(len(lastname_add) <= 2):
             
             flash("First name has to be at lest 2 characters long", category='error')
 
         elif (len(phonenumber_add) <=6 ):
 
-            flash("Last name has to be at lest 2 characters long", category='error')
+            flash("Last name has to be at lest 6 characters long", category='error')
         
         elif department_add == None:
             

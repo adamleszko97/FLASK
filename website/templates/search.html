@@ -13,9 +13,13 @@
             placeholder="Search name"
           />
         </div>
-        
-        <center><button type="submit" class="btn btn-primary">Search</button></center>
+        <center>
+        <input type="submit" class="btn btn-primary" value="Search" name="Search"/>
+        &nbsp&nbsp
+        <input type="submit" class="btn btn-primary" value="Search All" name="Search All"/>
+        </center>
         <br />
+      </form>
         {% if rows %}
           <table class="table">
             <thead>
@@ -34,9 +38,7 @@
           <td>{{ employee.first_name }} {{ employee.last_name }}</td>
           <td>{{ employee.phone_number }}</td>
           <td>{{ employee.department }}</td>
-          <td><button type="button" class="close" onclick="deleteEmployee({{ employee.id }})">
-          <span aria-hidden="true">&times;</span>
-          </button></td>
+          <td><button type="button" class="btn btn-danger" onclick="deleteEmployee({{ employee.id }})">Delete Employee</button></td>
         </tr>
         </tbody>
         {% endfor %}

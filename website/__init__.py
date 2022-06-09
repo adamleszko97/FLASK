@@ -1,11 +1,10 @@
 from flask import Flask, render_template, request, redirect, session, url_for
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-#db = SQLAlchemy()
+
 login = LoginManager()
 
 engine = create_engine("mssql+pymssql://ale:Test12345!@sqlflasktest.database.windows.net/test", echo=True)
